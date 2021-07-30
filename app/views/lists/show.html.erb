@@ -3,13 +3,15 @@
 
 <%= link_to "Back to lists", lists_path %>
 <%= link_to "Create a bookmark", new_list_bookmark_path(@list) %>
-<%= link_to "Delete bookmark", list_path(@list), method: :delete, data: { confirm: "Are you sure?" } %>
-
+<%= link_to "Delete list", list_path(@list), method: :delete, data: { confirm: "Are you sure?" } %>
 <div>
   <% @list.movies.each do |movie| %>
     <%= movie.title %>
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
     <%= movie.overview %>
     <%= image_tag movie.poster_url %>
     <%= movie.rating %>
+    <%= link_to "Delete bookmark", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" }%>
   <% end %>
 </div>
+
